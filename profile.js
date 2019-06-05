@@ -175,10 +175,10 @@ window.addEventListener('load', async () => {
       })
     }
   }
-  catch {
+  catch(error){
     console.error(error);
   }
-  
+
   renderCards();
 
   $("#loader").hide();
