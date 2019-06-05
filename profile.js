@@ -158,7 +158,7 @@ window.addEventListener('load', async () => {
   for (var index in cards_id) {
 
     //Make the call to the blockchain to get all relevant information on the card
-    const card = await callStatic('getCard', [parseInt(card_id[index])]);
+    const card = await callStatic('getCard', [parseInt(cards_id[index])]);
 
     //Create card object with  info from the call and push into the array with all cards
     cardArray.push({
