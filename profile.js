@@ -134,7 +134,8 @@ $('#registerBtn').click(async function(){
 $('#buyBtn').click(async function(){
   $("#loader").show();
   //Create two new let variables which get the values from the input fields
-  var id_card = ($('#card_id_number').val())
+  const id_card = parseInt($('#card_id_number').val())
+
   //Make the contract call to register the card with the newly passed values
   await contractCall('buyCard', [id_card], 0);
 
