@@ -161,7 +161,7 @@ window.addEventListener('load', async () => {
     cardArray.push({
       name: card.name,
       img: card.img,
-      card_id: i,
+      card_id: card.id_card,
       attack: card.attack,
       health: card.health,
       description: card.description
