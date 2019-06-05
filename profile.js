@@ -121,42 +121,11 @@ async function contractCall(func, args, value) {
   return calledSet;
 }
 
-$('#registerBtn').click(async function(){
-  $("#loader").show();
-  //Create two new let variables which get the values from the input fields
-  const name = ($('#regUsername').val());
-
-  //Make the contract call to register the card with the newly passed values
-  await contractCall('registerUser', [name], 0);
-
-  renderCards();
-  $("#loader").hide();
-});
-
-
-$('#buyBtn').click(async function(){
-  $("#loader").show();
-  //Create two new let variables which get the values from the input fields
-  const id_card = parseInt($('#card_id_number').val())
-
-  //Make the contract call to register the card with the newly passed values
-  await contractCall('buyCard', [id_card], 0);
-
-  renderCards();
-  $("#loader").hide();
-});
-
-
-window.addEventListener('load', async () => {
-  $("#loader").show();
-
-  cards_id = [1,1,1,1,1]
-
-  client = await Ae.Aepp();
-
-  address = await callStatic('getUserAddress', []);
-
+async function getAllCards(){
   try{
+
+    address = await callStatic('getUserAddress', []);
+
     cards_id = await callStatic('getCardsUser', [address]);
 
     for (var index in cards_id) {
@@ -178,6 +147,44 @@ window.addEventListener('load', async () => {
   catch(error){
     console.error(error);
   }
+}
+
+$('#registerBtn').click(async function(){
+  $("#loader").show();
+  //Create two new let variables which get the values from the input fields
+  const name = ($('#regUsername').val());
+
+  //Make the contract call to register the card with the newly passed values
+  await contractCall('registerUser', [name], 0);
+
+  renderCards();
+  $("#loader").hide();
+});
+
+
+$('#buyBtn').click(async function(){
+  $("#loader").show();
+  //Create two new let variables which get the values from the input fields
+  const id_card = parseInt($('#card_id_number').val())
+
+  //Make the contract call to register the card with the newly passed values
+  await contractCall('buyCard', [id_card], 0);
+
+  await getAllCards();
+
+  renderCards();
+  $("#loader").hide();
+});
+
+
+window.addEventListener('load', async () => {
+  $("#loader").show();
+
+  cards_id = [1,1,1,1,1]
+
+  client = await Ae.Aepp();
+
+  await getAllCards();
 
   renderCards();
 
