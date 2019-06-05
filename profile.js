@@ -1,5 +1,5 @@
-const contractSource = "
-    contract AEternityCards =
+const contractSource = '
+contract AEternityCards =
 
     record card =
         {   id_card       : int,
@@ -25,8 +25,8 @@ const contractSource = "
     function init() =
         {   users = {},
             usersLength = 0,
-            cards = {},
-            cardsLength = 0}
+            cards = {[1] = { id_card = 1, name = "Coin", attack = 10, health = 10, img = "https://images.pexels.com/photos/210703/pexels-photo-210703.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", description = "A coin"}, [2] = { id_card = 2, name = "Coffee", attack = 1, health = 1, img = "https://images.pexels.com/photos/434213/pexels-photo-434213.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=2&h=750&w=1260", description = "Relaxing cup of coffee"}},
+            cardsLength = 2}
 
 
     public function getCardsLength() : int =
@@ -43,15 +43,6 @@ const contractSource = "
     public stateful function addCard(card_ : card) =
         let index = getCardsLength() + 1
         put(state{ cards[index] = card_, cardsLength = index })
-
-
-    public stateful function addTestData(password : string) =
-        // TODO: Just testing. Find a way to control who can modify the cards.
-        if(password == "test")
-            let card = { id_card = 1, name = "Coin", attack = 10, health = 10, img = "https://images.pexels.com/photos/210703/pexels-photo-210703.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", description = "A coin"}
-            let card_2 = { id_card = 2, name = "Coffee", attack = 1, health = 1, img = "https://images.pexels.com/photos/434213/pexels-photo-434213.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=2&h=750&w=1260", description = "Relaxing cup of coffee"}
-            addCard(card)
-            addCard(card_2)
 
 
     public function getUsersLength() : int =
@@ -86,8 +77,8 @@ const contractSource = "
         switch(Map.lookup(address_user_, state.users))
             Some(x) => abort("You are not registered.")
             None    => addCardToUser(address_user_,card_id_)
-";
-const contractAddress = "th_231VNnNjDfWpMHC4MEwgyySKXgwKZj3JC7qcD7f4zvpa58FqGH";
+';
+const contractAddress = "th_sfqCndVnpgRcqgFMMLLkiN8Doi4kLZAmT3g9MaadgWTX3WnzQ";
 var client = null;
 
 /*
