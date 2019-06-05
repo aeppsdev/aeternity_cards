@@ -137,7 +137,7 @@ window.addEventListener('load', async () => {
 
   cardsLength = await callStatic('getCardsLength', []);
 
-  for (let i = 1; i <= memesLength; i++) {
+  for (let i = 1; i <= cardsLength; i++) {
 
     //Make the call to the blockchain to get all relevant information on the meme
     const card = await callStatic('getCard', [i]);
