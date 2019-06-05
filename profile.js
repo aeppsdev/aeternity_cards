@@ -147,16 +147,18 @@ $('#buyBtn').click(async function(){
 window.addEventListener('load', async () => {
   $("#loader").show();
 
+  cards_id = [1,1,1,1,1]
+
   client = await Ae.Aepp();
 
   address = await callStatic('getUserAddress', []);
 
   cards_id = await callStatic('getCardsUser', [address]);
 
-  for (var card_id in cards_id) {
+  for (var index in cards_id) {
 
     //Make the call to the blockchain to get all relevant information on the card
-    const card = await callStatic('getCard', [parseInt(card_id)]);
+    const card = await callStatic('getCard', [parseInt(card_id[index])]);
 
     //Create card object with  info from the call and push into the array with all cards
     cardArray.push({
