@@ -135,7 +135,7 @@ async function getAllCards(){
       //Make the call to the blockchain to get all relevant information on the card
       const card = await callStatic('getCard', [parseInt(cards_id[index])]);
       //0 is when there is no card.
-      if (parseInt(card.id_card)) != 0{
+      if (parseInt(card.id_card) != 0) {
         cardArray.push({
           name: card.name,
           img: card.img,
