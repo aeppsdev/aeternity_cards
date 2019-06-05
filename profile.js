@@ -156,24 +156,29 @@ window.addEventListener('load', async () => {
 
   address = await callStatic('getUserAddress', []);
 
-  cards_id = await callStatic('getCardsUser', [address]);
+  try{
+    cards_id = await callStatic('getCardsUser', [address]);
 
-  for (var index in cards_id) {
+    for (var index in cards_id) {
 
-    //Make the call to the blockchain to get all relevant information on the card
-    const card = await callStatic('getCard', [parseInt(cards_id[index])]);
+      //Make the call to the blockchain to get all relevant information on the card
+      const card = await callStatic('getCard', [parseInt(cards_id[index])]);
 
-    //Create card object with  info from the call and push into the array with all cards
-    cardArray.push({
-      name: card.name,
-      img: card.img,
-      card_id: card.id_card,
-      attack: card.attack,
-      health: card.health,
-      description: card.description
-    })
+      //Create card object with  info from the call and push into the array with all cards
+      cardArray.push({
+        name: card.name,
+        img: card.img,
+        card_id: card.id_card,
+        attack: card.attack,
+        health: card.health,
+        description: card.description
+      })
+    }
   }
-
+  catch {
+    console.error(error);
+  }
+  
   renderCards();
 
   $("#loader").hide();
