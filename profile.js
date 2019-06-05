@@ -78,7 +78,7 @@ contract AEternityCards =
             Some(x) => abort("You are not registered.")
             None    => addCardToUser(address_user_,card_id_)
 `;
-const contractAddress = "th_sfqCndVnpgRcqgFMMLLkiN8Doi4kLZAmT3g9MaadgWTX3WnzQ";
+const contractAddress = "ct_VmjJeJSqgFwHJj3C5SoGhCbnB9rv1dXDSmZV2mF4Pa9ZrUQhT";
 var client = null;
 
 /*
