@@ -75,10 +75,10 @@ contract AEternityCards =
     public stateful function buyCard(card_id_ : int) : card =
         let address_user_ = Call.caller
         switch(Map.lookup(address_user_, state.users))
-            Some(x) => abort("You are not registered.")
-            None    => addCardToUser(address_user_,card_id_)
+            Some(x) => addCardToUser(address_user_,card_id_)
+            None    => abort("You are not registered.")
 `;
-const contractAddress = "ct_VmjJeJSqgFwHJj3C5SoGhCbnB9rv1dXDSmZV2mF4Pa9ZrUQhT";
+const contractAddress = "ct_bTF5Ymqodkd35Rfci3ZHVnM7BB8zKTtQ3ui2nUFVgqbbd6mPY";
 var client = null;
 
 /*
