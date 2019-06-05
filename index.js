@@ -150,7 +150,7 @@ window.addEventListener('load', async () => {
       attack: card.attack,
       health: card.health,
       description: card.description
-    })
+    });
   }
 
   renderCards();
