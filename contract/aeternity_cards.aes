@@ -1,0 +1,87 @@
+contract AEternityCards =
+
+    record card =
+        {   id_card       : int,
+            name          : string,
+            img           : string,
+            attack        : int,
+            health        : int,
+            description   : string }
+
+
+    record user =
+        {   username        : string,
+            card_ids        : list(int) }
+
+
+    record state =
+        {   users         : map(address, user),
+            usersLength   : int,
+            cards         : map(int, card),
+            cardsLength   : int}
+
+
+    function init() =
+        {   users = {},
+            usersLength = 0,
+            cards = {},
+            cardsLength = 0}
+
+
+    public function getCardsLength() : int =
+        state.cardsLength
+
+
+    public function getCard(index : int) : card =
+        let not_found_card = { id_card = 0, name = "Not found", attack = 0, health = 0, img="Not found", description = "Card not found"}
+    	switch(Map.lookup(index, state.cards))
+            None    => not_found_card
+            Some(x) => x
+
+
+    public stateful function addCard(card_ : card) =
+        let index = getCardsLength() + 1
+        put(state{ cards[index] = card_, cardsLength = index })
+
+
+    public stateful function addTestData(password : string) =
+        // TODO: Just testing. Find a way to control who can modify the cards.
+        if(password == "test")
+            let card = { id_card = 1, name = "Coin", attack = 10, health = 10, img = "https://images.pexels.com/photos/210703/pexels-photo-210703.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", description = "A coin"}
+            let card_2 = { id_card = 2, name = "Coffee", attack = 1, health = 1, img = "https://images.pexels.com/photos/434213/pexels-photo-434213.jpeg?auto=format%2Ccompress&cs=tinysrgb&dpr=2&h=750&w=1260", description = "Relaxing cup of coffee"}
+            addCard(card)
+            addCard(card_2)
+
+
+    public function getUsersLength() : int =
+        state.usersLength
+
+
+    public stateful function registerUser(username_ : string) =
+        let address_user = Call.caller
+        let user = { username = username_, card_ids = [] }
+        let index = getUsersLength() + 1
+        switch(Map.lookup(address_user, state.users))
+            Some(x) => abort("There is a user with this address.")
+            None    => put(state{ users[address_user] = user, usersLength = index })
+
+
+    public function getUserAddress() : address = 
+        Call.caller
+
+
+    public function getCardsUser(address_user_ : address) : list(int) =
+        state.users[address_user_].card_ids
+
+
+    public stateful function addCardToUser(address_user_ : address, card_id_ : int) =
+        let card_ids_ = card_id_ :: state.users[address_user_].card_ids
+        put(state {users[address_user_].card_ids = card_ids_ })
+        getCard(card_id_)
+
+
+    public stateful function buyCard(card_id_ : int) : card =
+        let address_user_ = Call.caller
+        switch(Map.lookup(address_user_, state.users))
+            Some(x) => abort("You are not registered.")
+            None    => addCardToUser(address_user_,card_id_)
