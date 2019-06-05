@@ -124,6 +124,8 @@ async function contractCall(func, args, value) {
 async function getAllCards(){
   try{
 
+    cardArray = [];
+
     address = await callStatic('getUserAddress', []);
 
     cards_id = await callStatic('getCardsUser', [address]);
@@ -132,16 +134,17 @@ async function getAllCards(){
 
       //Make the call to the blockchain to get all relevant information on the card
       const card = await callStatic('getCard', [parseInt(cards_id[index])]);
-
-      //Create card object with  info from the call and push into the array with all cards
-      cardArray.push({
-        name: card.name,
-        img: card.img,
-        card_id: card.id_card,
-        attack: card.attack,
-        health: card.health,
-        description: card.description
-      })
+      //0 is when there is no card.
+      if (parseInt(card.id_card)) != 0{
+        cardArray.push({
+          name: card.name,
+          img: card.img,
+          card_id: card.id_card,
+          attack: card.attack,
+          health: card.health,
+          description: card.description
+        })
+      }
     }
   }
   catch(error){

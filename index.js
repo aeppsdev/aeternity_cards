@@ -34,7 +34,7 @@ contract AEternityCards =
 
 
     public function getCard(index : int) : card =
-        let not_found_card = { id_card = 0, name = "Not found", attack = 0, health = 0, img="Not found", description = "Card not found"}
+        let not_found_card = { id_card = 0, name = "Not found", attack = 0, health = 0, img="https://images.pexels.com/photos/262333/pexels-photo-262333.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940", description = "Card not found"}
         switch(Map.lookup(index, state.cards))
             None    => not_found_card
             Some(x) => x
