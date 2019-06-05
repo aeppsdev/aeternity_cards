@@ -1,4 +1,4 @@
-const contractSource = '
+const contractSource = `
 contract AEternityCards =
 
     record card =
@@ -77,7 +77,7 @@ contract AEternityCards =
         switch(Map.lookup(address_user_, state.users))
             Some(x) => abort("You are not registered.")
             None    => addCardToUser(address_user_,card_id_)
-';
+`;
 const contractAddress = "th_sfqCndVnpgRcqgFMMLLkiN8Doi4kLZAmT3g9MaadgWTX3WnzQ";
 var client = null;
 
