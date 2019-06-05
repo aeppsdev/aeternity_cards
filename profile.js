@@ -35,7 +35,7 @@ contract AEternityCards =
 
     public function getCard(index : int) : card =
         let not_found_card = { id_card = 0, name = "Not found", attack = 0, health = 0, img="Not found", description = "Card not found"}
-      switch(Map.lookup(index, state.cards))
+        switch(Map.lookup(index, state.cards))
             None    => not_found_card
             Some(x) => x
 
@@ -165,7 +165,7 @@ window.addEventListener('load', async () => {
       attack: card.attack,
       health: card.health,
       description: card.description
-    });
+    })
   }
 
   renderCards();
