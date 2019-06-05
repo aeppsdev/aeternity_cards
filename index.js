@@ -123,10 +123,10 @@ $('#registerBtn').click(async function(){
   //Create two new let variables which get the values from the input fields
   const name = ($('#regUsername').val());
 
-  //Make the contract call to register the meme with the newly passed values
+  //Make the contract call to register the card with the newly passed values
   await contractCall('registerUser', [name], 0);
 
-  renderMemes();
+  renderCards();
   $("#loader").hide();
 });
 
@@ -139,10 +139,10 @@ window.addEventListener('load', async () => {
 
   for (let i = 1; i <= cardsLength; i++) {
 
-    //Make the call to the blockchain to get all relevant information on the meme
+    //Make the call to the blockchain to get all relevant information on the card
     const card = await callStatic('getCard', [i]);
 
-    //Create meme object with  info from the call and push into the array with all memes
+    //Create card object with  info from the call and push into the array with all cards
     cardArray.push({
       name: card.name,
       img: card.img,
