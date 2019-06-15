@@ -126,14 +126,21 @@ $('#registerBtn').click(async function(){
   //Create two new let variables which get the values from the input fields
   const name = ($('#regUsername').val());
 
-  //Make the contract call to register the card with the newly passed values
-  await contractCall('registerUser', [name], 0);
+  try{
+    //Make the contract call to register the card with the newly passed values
+    await contractCall('registerUser', [name], 0);
+    $('#register-modal-successfully').modal('show');
+  }
+  catch{
+    $('#register-modal-error').modal('show');
+  }
 
   renderCards();
   $("#loader").hide();
 });
 
 window.addEventListener('load', async () => {
+
   $("#loader").show();
 
   client = await Ae.Aepp();
